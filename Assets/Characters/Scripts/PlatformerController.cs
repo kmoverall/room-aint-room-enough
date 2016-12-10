@@ -92,6 +92,8 @@ public class PlatformerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        currentMotion += new Vector3(Physics2D.gravity.x * gravityScale, Physics2D.gravity.y * gravityScale, 0) * Time.deltaTime;
+
         currentMotion.x = Mathf.Clamp(currentMotion.x, -1 * terminalVelocity, terminalVelocity);
         currentMotion.y = Mathf.Clamp(currentMotion.y, -1 * terminalVelocity, terminalVelocity);
 
