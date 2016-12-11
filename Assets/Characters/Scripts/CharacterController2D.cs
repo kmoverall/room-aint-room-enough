@@ -12,6 +12,8 @@ public class CharacterController2D : MonoBehaviour {
         public Vector3 topLeft;
         public Vector3 bottomRight;
         public Vector3 bottomLeft;
+
+        public override string ToString() { return "Top Left: " + topLeft + " | Bottom Right: " + bottomRight + " | Bottom Left: " + bottomLeft;  }
     }
 
     public class CharacterCollisionState2D {
@@ -436,7 +438,7 @@ public class CharacterController2D : MonoBehaviour {
         //Handle Vertical Piercing
         if (direction == Vector2.up || direction == Vector2.down) {
             // apply our horizontal deltaMovement here so that we do our raycast from the actual position we would be in if we had moved
-            initialRayOrigin.x += deltaMovement.x;
+            //initialRayOrigin.x += deltaMovement.x;
 
             // if we are checking up, we should ignore the layers in oneWayPlatformMask
             var mask = platformMask;
@@ -448,7 +450,7 @@ public class CharacterController2D : MonoBehaviour {
                 DrawRay(ray, direction * rayDistance, Color.red);
                 _raycastHit = Physics2D.Raycast(ray, direction, rayDistance, mask);
                 if (_raycastHit) {
-                    // set our new psuhDistance and recalculate the rayDistance taking it into account
+                    // set our new pushDistance and recalculate the rayDistance taking it into account
                     rayDistance = Mathf.Abs(_raycastHit.point.y - ray.y);
                     pushDistance = boxCollider.bounds.extents.y - rayDistance;
 

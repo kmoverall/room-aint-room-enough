@@ -22,27 +22,34 @@ public class PlatformerController : MonoBehaviour {
     private float airControl = 1f;
     [SerializeField]
     private float terminalVelocity = 40f;
+    [SerializeField]
+    private bool allowDoubleJump = true;
 
     //currentMotion is effectively the current velocity vector in (meters/second)
     private Vector3 currentMotion;
-    private bool isFacingRight = true;
+    [HideInInspector]
+    public bool isFacingRight = true;
+    private bool doubleJumpAvailable;
 
 
     void Awake () {
         controller = gameObject.GetComponent<CharacterController2D>();
         anim = gameObject.GetComponentInChildren<Animator>();
+        isFacingRight = transform.localScale.x > 0;
+        doubleJumpAvailable = allowDoubleJump;
     }
 
     //Alters currentMotion based on horizontal input
     public void Move (float xIn) {
 
-        //Handle animation parameter
-        anim.SetFloat("Speed", Mathf.Abs(xIn));
 
         //Sprite should face in input direction
         if ((isFacingRight && xIn < 0) || (!isFacingRight && xIn > 0)) {
             FlipSprite();
         }
+
+        //Handle animation parameter
+        anim.SetFloat("Speed", Mathf.Abs(xIn));
 
         //Acceleration is not scaled by deltaTime until it is added to currentMotion
         Vector3 acceleration = new Vector3();
@@ -82,6 +89,17 @@ public class PlatformerController : MonoBehaviour {
             controller.isJumping = true;
             currentMotion.y = jumpVelocity;
         }
+
+        if (!controller.isGrounded && doubleJumpAvailable)
+        {
+            controller.isJumping = true;
+            currentMotion.y = jumpVelocity;
+            doubleJumpAvailable = false;
+        }
+    }
+
+    public void Dash () {
+        
     }
 	
     public void FlipSprite () {
@@ -103,6 +121,10 @@ public class PlatformerController : MonoBehaviour {
 
         // Set the vertical animation
         anim.SetFloat("vSpeed", currentMotion.y);
+
+        if (allowDoubleJump && controller.isGrounded) {
+            doubleJumpAvailable = true;
+        }
 
         //Negate motion if blocked, prevents "hanging" on ceilings and walls
         if ((controller.isGrounded && currentMotion.y < 0) || (controller.collisionState.above && currentMotion.y > 0)) {
