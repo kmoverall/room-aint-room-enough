@@ -13,9 +13,6 @@ public class PreventPassThrough : MonoBehaviour {
     }
 	
 	void Update () {
-        /*RaycastHit2D hit = Physics2D.BoxCast(posRecord[0], GetComponent<BoxCollider2D>().bounds.size, 0, 
-                                             transform.position - posRecord[0], (transform.position - posRecord[0]).magnitude * 2, 
-                                             Physics2D.GetLayerCollisionMask(gameObject.layer));*/
 
         RaycastHit2D hit = Physics2D.Raycast(posRecord[0], transform.position - posRecord[0], (transform.position - posRecord[0]).magnitude, Physics2D.GetLayerCollisionMask(gameObject.layer));
 

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: fd2a8b4e996cca043a1dcdd0fe301055
+timeCreated: 1481500201
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Saddlebag
+  fontNames:
+  - Saddlebag
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Wall : MonoBehaviour {
 
     public float throwSpeed;
+    public AudioClip hitSound;
     
     bool _isFloor;
     public bool isFloor
@@ -41,6 +42,12 @@ public class Wall : MonoBehaviour {
         isLoose = true;
     }
 
+    public void BreakWall()
+    {
+        WallGrid.BreakWall(this);
+        StartTumble();
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         HandleCollision(collision.collider.gameObject);
@@ -56,5 +63,10 @@ public class Wall : MonoBehaviour {
             else
                 StartTumble();
         }
+    }
+
+    public void PlayAudio(AudioClip sound)
+    {
+        GetComponent<AudioSource>().PlayOneShot(sound);
     }
 }
